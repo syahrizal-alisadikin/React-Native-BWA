@@ -17,9 +17,7 @@ const Icon = ({label,focus}) => {
         default:
         return <IcOrderOn/>
     }
-    return(
-        <IcOrderOn/>
-    )
+  
 }
 
 const BottomNavigator = ({ state, descriptors, navigation }) => {

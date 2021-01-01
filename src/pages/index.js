@@ -6,4 +6,6 @@ import SuccessSignUp from './SuccessSignUp'
 import Home from './Home'
 import Profile from './Profile'
 import Order from './Order'
-export {SplashScreen,SignIn,SignUp,SignUpAddress,SuccessSignUp,Home,Profile,Order}
+import FoodDetail from './FoodDetail'
+
+export {SplashScreen,SignIn,SignUp,SignUpAddress,SuccessSignUp,Home,Profile,Order,FoodDetail}
