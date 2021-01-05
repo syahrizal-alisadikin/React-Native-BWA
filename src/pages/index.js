@@ -7,5 +7,7 @@ import Home from './Home'
 import Profile from './Profile'
 import Order from './Order'
 import FoodDetail from './FoodDetail'
-
-export {SplashScreen,SignIn,SignUp,SignUpAddress,SuccessSignUp,Home,Profile,Order,FoodDetail}
+import OrderSummery from './OrderSummery'
+import SuccessOrder from './SuccessOrder'
+import OrderDetail from './OrderDetail'
+export {SplashScreen,SignIn,SignUp,SignUpAddress,SuccessSignUp,SuccessOrder,Home,Profile,Order,FoodDetail,OrderDetail,OrderSummery}

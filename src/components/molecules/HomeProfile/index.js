@@ -17,7 +17,7 @@ const HomeProfile = () => {
 export default HomeProfile;
 
 const styles = StyleSheet.create({
-    profileContainer:{backgroundColor:'yellow',
+    profileContainer:{backgroundColor:'white',
                         flexDirection:'row',
                         justifyContent:'space-between',
                         paddingHorizontal:24,

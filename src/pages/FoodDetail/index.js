@@ -3,7 +3,7 @@ import { StyleSheet, Text, View,ImageBackground,TouchableOpacity } from 'react-n
 import { FoodDummy6, IcBackWhite } from '../../assets'
 import { Button, Counter, Rating } from '../../components'
 
-const FoodDetail = () => {
+const FoodDetail = ({navigation}) => {
     return (
         <View style={styles.pages}>
             <ImageBackground source={FoodDummy6} style={styles.CoverImage}>
@@ -30,7 +30,7 @@ const FoodDetail = () => {
                         <Text style={styles.priceTotal}>Rp500.000</Text>
                     </View>
                     <View style={styles.button}>
-                        <Button text="Order Sekarang"/>
+                        <Button text="Order Sekarang" onPress={() => navigation.navigate('OrderSummery')}/>
                     </View>
                 </View>
             </View>

@@ -9,11 +9,11 @@ import {useNavigation} from '@react-navigation/native';
 const renderTabBar = props => (
   <TabBar
     {...props}
-    indicatorStyle={{ backgroundColor: 'yellow', width:'15%',height:3, marginLeft:'5%' }}
+    indicatorStyle={{ backgroundColor: 'yellow', width:'15%',height:3, marginLeft:'10%' }}
     style={{ backgroundColor: 'white',elevation:0,shadowOpacity:0 }}
     tabStyle={{ width:'auto'}}
     renderLabel={({ route, focused, color }) => (
-    <Text style={{ color: focused ? 'black' : 'grey', fontWeight: focused ? '600' : '500' }}>
+    <Text style={{ color: focused ? 'black' : 'grey', fontWeight: focused ? '600' : '500',marginLeft:20 }}>
       {route.title}
     </Text>
   )}
@@ -24,11 +24,11 @@ const renderTabBar = props => (
 const NewFood = () => {
   const navigation = useNavigation();
   return (
-    <View>
-      <FoodListItem  onPress={() => navigation.navigate('FoodDetail')}image={FoodDummy1} menu={'Ikan Bakar'} price={'500.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy2} menu={'Buah Segar'} price={'200.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy3} menu={'Kopi Mantan'} price={'100.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy4} menu={'Kopi Kenangan'} price={'150.000'}/>
+    <View style={{paddingHorizontal:24  }}>
+      <FoodListItem  onPress={() => navigation.navigate('FoodDetail')}image={FoodDummy1} type='product' menu={'Ikan Bakar'} price={'500.000'} rating={4}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy2} type='product' menu={'Buah Segar'} price={'200.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy3} type='product' menu={'Kopi Mantan'} price={'100.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy4} type='product' menu={'Kopi Kenangan'} price={'150.000'} rating={3}/>
     </View>
   );
 }
@@ -36,11 +36,11 @@ const NewFood = () => {
 const Popular = () => {
   const navigation = useNavigation();
   return (
-    <View>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy4} menu={'Kopi Kenangan'} price={'150.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy2} menu={'Buah Segar'} price={'200.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy1} menu={'Ikan Bakar'} price={'500.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy3} menu={'Kopi Mantan'} price={'100.000'}/>
+    <View style={{ paddingHorizontal:24  }}>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy4} type='product'  menu={'Kopi Kenangan'} price={'150.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy2} type='product'  menu={'Buah Segar'} price={'200.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy1} type='product'  menu={'Ikan Bakar'} price={'500.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy3} type='product'  menu={'Kopi Mantan'} price={'100.000'} rating={3}/>
     </View>
   );
 }
@@ -48,10 +48,10 @@ const Popular = () => {
 const Recomended = () => {
   const navigation = useNavigation();
   return (
-    <View>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy1} menu={'Ikan Bakar'} price={'500.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy3} menu={'Buah Segar'} price={'200.000'}/>
-      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} image={FoodDummy2} menu={'Kopi Mantan'} price={'100.000'}/>
+    <View style={{  paddingHorizontal:24 }}>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} type='product'  image={FoodDummy1} menu={'Ikan Bakar'} price={'500.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} type='product'  image={FoodDummy3} menu={'Buah Segar'} price={'200.000'} rating={3}/>
+      <FoodListItem onPress={() => navigation.navigate('FoodDetail')} type='product'  image={FoodDummy2} menu={'Kopi Mantan'} price={'100.000'} rating={3}/>
     </View>
   );
 }

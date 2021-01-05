@@ -1,30 +1,51 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, View } from 'react-native'
 import {Button, Header,InputText,Gap} from '../../components'
-
+import {useSelector, useDispatch} from 'react-redux';
+import { CustomeHook} from '../../utils';
 const SignUp = ({navigation}) => {
+
+    const [form,setform] = CustomeHook({
+        name:'',
+        email:'',
+        password:''
+    });
+
+    const dispatch = useDispatch();
+    
+    const SubmitRegister = () => {
+        console.log('register', form)
+        // Menyimpan ke store Redux
+        dispatch({type:'SET_REGISTER',value:form})
+
+        navigation.navigate('SignUpAddress')
+    }
+
     return (
-          <View style={styles.page}>
-            <Header title={'Pendaftaran'} subTitle={'Mulai Menabung Kebaikan'} onBack={() => {navigation.replace('SignIn')} }/>
-            <View style={styles.container}>
-                <View style={styles.photo}>
-                    <View style={styles.borderPhoto}>
-                    <View style={styles.photoContainer}>
-                        <Text style={styles.addPhoto}>add photo</Text>
+          <ScrollView contentContainerStyle={{ flexGrow:1 }}>
+              <View style={styles.page}>
+                    <Header title={'Pendaftaran'} subTitle={'Mulai Menabung Kebaikan'} onBack={() => {navigation.replace('SignIn')} }/>
+                    <View style={styles.container}>
+                        <View style={styles.photo}>
+                            <View style={styles.borderPhoto}>
+                            <View style={styles.photoContainer}>
+                                <Text style={styles.addPhoto}>add photo</Text>
+                            </View>
+                        </View>
+                        </View>
+                        <InputText label={'Full Name'} placeholder={'Masukan FullName'} value={form.name} onChangeText={(value) => setform('name',value)}/>
+                        <Gap height={10}/>
+                        <InputText label={'Email'} placeholder={'Masukan Email'} value={form.email} onChangeText={(value) => setform('email',value)}/>
+                        <Gap height={10}/>
+                        
+                        <InputText label={'Password'} placeholder={'Masukan Password'} secureTextEntry value={form.password} onChangeText={(value) => setform('password',value)}/>
+                        <Gap height={20}/>
+                        
+                        <Button textColor={'white'} color={'green'} text={'Continue'} onPress={SubmitRegister } />
                     </View>
                 </View>
-                </View>
-                <InputText label={'Full Name'} placeholder={'Masukan FullName'}/>
-                <Gap height={10}/>
-                <InputText label={'Email'} placeholder={'Masukan Email'}/>
-                <Gap height={10}/>
-                
-                <InputText label={'Password'} placeholder={'Masukan Password'}/>
-                <Gap height={20}/>
-                
-                <Button textColor={'white'} color={'green'} text={'Continue'} onPress={() => navigation.navigate('SignUpAddress')} />
-            </View>
-          </View>
+          </ScrollView>
+
     )
 }
 

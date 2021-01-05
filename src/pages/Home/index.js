@@ -16,7 +16,7 @@ const Home = () => {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <View style={styles.foodCardContainer}>
                         {/* <Gap width={24}/> */}
-                        <FoodCard  image={FoodDummy1} menu={'Nasi'}/>
+                        <FoodCard  image={FoodDummy1} menu={'Nasi'} />
                         <FoodCard  image={FoodDummy2} menu={'Rujak'}/>
                         <FoodCard  image={FoodDummy3} menu={'Kopi'}/>
                         <FoodCard  image={FoodDummy4} menu={'Susu'}/>

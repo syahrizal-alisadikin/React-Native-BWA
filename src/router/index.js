@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import { SignIn,SignUp, SplashScreen,SignUpAddress,SuccessSignUp, Home, Profile, Order, FoodDetail } from '../pages';
+import { SignIn,SignUp, SplashScreen,SignUpAddress,SuccessSignUp, Home, Profile, Order, FoodDetail, OrderSummery, SuccessOrder, OrderDetail } from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
 
@@ -11,8 +11,8 @@ const MainApp = () => {
     return (
         <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
             <Tab.Screen name="Home" component={Home}/>
-            <Tab.Screen name="Profile" component={Profile}/>
             <Tab.Screen name="Order" component={Order}/>
+            <Tab.Screen name="Profile" component={Profile}/>
         </Tab.Navigator>
     )
 }
@@ -53,9 +53,27 @@ const Router = () => {
             <Stack.Screen 
             name="FoodDetail" 
             component={FoodDetail}
-            
+        
             options={{ headerShown:false }}/>
 
+            
+            <Stack.Screen 
+            name="OrderSummery" 
+            component={OrderSummery}
+        
+            options={{ headerShown:false }}/>
+
+            <Stack.Screen 
+            name="SuccessOrder" 
+            component={SuccessOrder}
+        
+            options={{ headerShown:false }}/>
+
+            <Stack.Screen 
+            name="OrderDetail" 
+            component={OrderDetail}
+        
+            options={{ headerShown:false }}/>
         </Stack.Navigator>
     )
 }

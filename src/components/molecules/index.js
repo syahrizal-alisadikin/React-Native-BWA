@@ -6,4 +6,9 @@ import HomeProfile from './HomeProfile';
 import Rating from './Rating';
 import FoodListItem from './FoodListItem';
 import Counter from './Counter';
-export{Header, BottomNavigator,FoodCard,HomeTabSection,HomeProfile,Rating,FoodListItem,Counter}
+import ItemValue from './ItemValue';
+import EmptyOrder from './EmptyOrder';
+import OrderTabSection from './OrderTabSection';
+import ProfileTabSection from './ProfileTabSection';
+import ItemListProfile from './ItemListProfile';
+export{Header, BottomNavigator,FoodCard,HomeTabSection,ItemListProfile,ProfileTabSection,OrderTabSection,HomeProfile,Rating,FoodListItem,Counter,ItemValue,EmptyOrder}
