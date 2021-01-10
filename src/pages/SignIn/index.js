@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import {useDispatch} from 'react-redux'
 import axios from 'axios';
 import { View,StyleSheet } from 'react-native'
 import {Header, InputText,Button, Gap} from '../../components'
@@ -8,7 +9,7 @@ const SignIn = ({navigation}) => {
     // Local Hook
     //  const [email, setemail]  = useState('');
     //  const [password, setpassword] = useState('');
-
+     const dispatch = useDispatch();
     //  Custome Hook
     const [form,setform] = CustomeHook(
         // Yang mengirim data email sama password
@@ -20,9 +21,11 @@ const SignIn = ({navigation}) => {
 
      const OnSubmit = () => {
          console.log('form',form)
+         
          axios.post('http://foodmarket-backend.buildwithangga.id/api/login',form)
                 .then((response) => {
                     console.log(response)
+
                 })
                 .catch((err) => {
                     console.log(err)

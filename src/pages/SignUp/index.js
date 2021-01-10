@@ -1,8 +1,10 @@
-import React from 'react'
-import { StyleSheet, Text, ScrollView, View } from 'react-native'
+import React,{useState} from 'react'
+import { StyleSheet, Text, ScrollView,TouchableOpacity, View, Image } from 'react-native'
 import {Button, Header,InputText,Gap} from '../../components'
-import {useSelector, useDispatch} from 'react-redux';
-import { CustomeHook} from '../../utils';
+import { useDispatch} from 'react-redux';
+import { CustomeHook, ShowMessage} from '../../utils';
+import { launchImageLibrary} from 'react-native-image-picker';
+
 const SignUp = ({navigation}) => {
 
     const [form,setform] = CustomeHook({
@@ -11,8 +13,35 @@ const SignUp = ({navigation}) => {
         password:''
     });
 
+    const [photo, setphoto] = useState('')
+
     const dispatch = useDispatch();
     
+    const AddPhoto = () => {
+        launchImageLibrary({
+            quality: 0.5,
+            maxWidth: 200,
+            maxHeight: 200
+        }, (callback) => {
+            console.log('Data Upload', callback)
+            if(callback.didCancel || callback.error){
+                ShowMessage('anda Tidak Memilih Photo')
+            } else{
+                const source = {uri: callback.uri};
+                const dataImage = {
+                uri: callback.uri,
+                type: callback.type,
+                name: callback.fileName
+                }
+                dispatch({type:'SET_PHOTO',value:dataImage});
+                dispatch({type :'SET_STATUS_PHOTO', value: true})
+                setphoto(source);
+            }
+           
+           
+         })
+    }
+
     const SubmitRegister = () => {
         console.log('register', form)
         // Menyimpan ke store Redux
@@ -27,11 +56,15 @@ const SignUp = ({navigation}) => {
                     <Header title={'Pendaftaran'} subTitle={'Mulai Menabung Kebaikan'} onBack={() => {navigation.replace('SignIn')} }/>
                     <View style={styles.container}>
                         <View style={styles.photo}>
-                            <View style={styles.borderPhoto}>
-                            <View style={styles.photoContainer}>
-                                <Text style={styles.addPhoto}>add photo</Text>
-                            </View>
-                        </View>
+                            <TouchableOpacity onPress={AddPhoto}>
+                                <View style={styles.borderPhoto}>
+                                    {photo ? (<Image source={photo}  style={styles.photoContainer}/>) : 
+                                    (<View style={styles.photoContainer}>
+                                        <Text style={styles.addPhoto}>add photo</Text>
+                                    </View>)}
+                                    
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <InputText label={'Full Name'} placeholder={'Masukan FullName'} value={form.name} onChangeText={(value) => setform('name',value)}/>
                         <Gap height={10}/>
@@ -73,7 +106,9 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 90,
         backgroundColor:'#F0f0f0',
-        padding:24},
+        justifyContent:'center',
+        alignItems:'center'    
+    },
     addPhoto:{fontSize:14,fontWeight:'400',color:'#8D92A3',textAlign:'center'},
  
 })

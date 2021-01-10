@@ -1,11 +1,10 @@
 import React from 'react'
 import { StyleSheet, ScrollView, View } from 'react-native'
 import {Button, Header,InputText,Gap,Select} from '../../components'
-import {CustomeHook} from '../../utils';
-import  {useSelector} from 'react-redux';
+import {CustomeHook, ShowMessage} from '../../utils';
+import  {useSelector,useDispatch} from 'react-redux';
 import axios from 'axios';
 
-import { showMessage } from "react-native-flash-message";
 
 const SignUpAddress = ({navigation}) => {
 
@@ -16,37 +15,49 @@ const SignUpAddress = ({navigation}) => {
         phoneNumber:''
     })
 
-    const registerReducer = useSelector((state) => state.registerReducer)
-
+    // Contstractor
+    const {registerReducer,photoReducer} = useSelector((state) => state)
+    const dispatch = useDispatch();
     const OnsubmitAddress = () => {
        const data = {
             ...form,
             ...registerReducer
         }
-        console.log('Register',data)
+
+        // Loading 
+        dispatch({type:'SET_LOADING',value:true})
         axios.post('http://foodmarket-backend.buildwithangga.id/api/register',data)
                 .then((response) => {
                     console.log('register success', response.data)
+                    const imageUload = new FormData();
+                    imageUload.append('file',photoReducer)
+
+                    // jika ada photo yg di upoload,jalankan axios mengirim gambar
+                   if(photoReducer.isUploadPhoto){
+                        axios.post('http://foodmarket-backend.buildwithangga.id/api/user/photo',imageUload,{
+                        headers:{
+                        'Authorization' : `${response.data.data.token_type} ${response.data.data.access_token}`,
+                        'Content-Type'  : 'multipart/form-data'
+                        }
+                        })
+                        .then(res => {console.log('Data Upload',res)})
+                        .catch(err => {ShowMessage(err,'Data Image Gagal di upload')})
+                   }
                     navigation.replace('SuccessSignUp')
+                    dispatch({type:'SET_LOADING',value:false})
 
                 })
                 .catch((err) => {
+                    dispatch({type:'SET_LOADING',value:false})
+
                     console.log('error register',err.response.data.message)
-                    ShowToast(err?.response?.data?.message,'danger','danger')
+                    ShowMessage(err?.response?.data?.message,'danger','danger')
                 })
         // navigation.replace('SuccessSignUp')
     }
 
 
-    const ShowToast = (message,type,icon) => {
-        showMessage({
-                message,
-                type: type === "info" ? 'success' : 'danger',
-                backgroundColor: type === "info" ? 'green' : 'red',
-                duration: 5000,
-                icon: icon
-            });
-    }
+  
 
     return (
       <ScrollView contentContainerStyle={{ flexGrow:1 }}>
