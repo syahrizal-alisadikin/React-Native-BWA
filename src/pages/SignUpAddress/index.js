@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, ScrollView, View } from 'react-native'
 import {Button, Header,InputText,Gap,Select} from '../../components'
-import {CustomeHook, ShowMessage} from '../../utils';
+import {CustomeHook} from '../../utils';
 import  {useSelector,useDispatch} from 'react-redux';
-import axios from 'axios';
+import { setLoading, signUpAction } from '../../redux/action';
 
 
 const SignUpAddress = ({navigation}) => {
@@ -25,35 +25,10 @@ const SignUpAddress = ({navigation}) => {
         }
 
         // Loading 
-        dispatch({type:'SET_LOADING',value:true})
-        axios.post('http://foodmarket-backend.buildwithangga.id/api/register',data)
-                .then((response) => {
-                    console.log('register success', response.data)
-                    const imageUload = new FormData();
-                    imageUload.append('file',photoReducer)
-
-                    // jika ada photo yg di upoload,jalankan axios mengirim gambar
-                   if(photoReducer.isUploadPhoto){
-                        axios.post('http://foodmarket-backend.buildwithangga.id/api/user/photo',imageUload,{
-                        headers:{
-                        'Authorization' : `${response.data.data.token_type} ${response.data.data.access_token}`,
-                        'Content-Type'  : 'multipart/form-data'
-                        }
-                        })
-                        .then(res => {console.log('Data Upload',res)})
-                        .catch(err => {ShowMessage(err,'Data Image Gagal di upload')})
-                   }
-                    navigation.replace('SuccessSignUp')
-                    dispatch({type:'SET_LOADING',value:false})
-
-                })
-                .catch((err) => {
-                    dispatch({type:'SET_LOADING',value:false})
-
-                    console.log('error register',err.response.data.message)
-                    ShowMessage(err?.response?.data?.message,'danger','danger')
-                })
-        // navigation.replace('SuccessSignUp')
+        dispatch(setLoading(true))
+        // send data register ke api
+        dispatch(signUpAction(data,photoReducer,navigation))
+      
     }
 
 

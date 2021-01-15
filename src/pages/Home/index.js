@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet,ScrollView, Text, View,Image } from 'react-native';
-import {ProfileDummy,FoodDummy1,FoodDummy2,FoodDummy3,FoodDummy4} from '../../assets';
+import { StyleSheet,ScrollView, View} from 'react-native';
+import {FoodDummy1,FoodDummy2,FoodDummy3,FoodDummy4} from '../../assets';
 import { FoodCard, HomeProfile, HomeTabSection } from '../../components/molecules';
 
 
