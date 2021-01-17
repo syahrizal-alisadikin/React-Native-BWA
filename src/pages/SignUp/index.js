@@ -53,7 +53,7 @@ const SignUp = ({navigation}) => {
     return (
           <ScrollView contentContainerStyle={{ flexGrow:1 }}>
               <View style={styles.page}>
-                    <Header title={'Pendaftaran'} subTitle={'Mulai Menabung Kebaikan'} onBack={() => {navigation.replace('SignIn')} }/>
+                    <Header title={'Pendaftaran'} subTitle={'Mulai Menabung Kebaikan'} onBack={() => {navigation.goBack()} }/>
                     <View style={styles.container}>
                         <View style={styles.photo}>
                             <TouchableOpacity onPress={AddPhoto}>

@@ -37,7 +37,7 @@ const SignUpAddress = ({navigation}) => {
     return (
       <ScrollView contentContainerStyle={{ flexGrow:1 }}>
             <View style={styles.page}>
-            <Header title={'Address'} subTitle={'Make Sure is Valid'} onBack={() => {navigation.replace('SignUp')} }/>
+            <Header title={'Address'} subTitle={'Make Sure is Valid'} onBack={() => {navigation.goBack()} }/>
             <View style={styles.container}>
                 <InputText label={'Phone'} placeholder={'Masukan no Telephone'} value={form.phone} onChangeText={(value) => setform('phoneNumber',value)}/>
                 <Gap height={10}/>

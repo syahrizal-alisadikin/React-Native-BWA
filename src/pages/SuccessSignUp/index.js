@@ -15,7 +15,7 @@ const SuccessSignUp = ({navigation}) => {
             <Text style={styles.subTitle}>some foods as a self-reward</Text>
             <Gap height={25}/>
             <View style={styles.buttonContainer}>
-                <Button textColor={'white'} color={'green'} text={'Sign'} onPress={() => navigation.replace('MainApp')} />
+                <Button textColor={'white'} color={'green'} text={'Find Your Food'} onPress={() => navigation.reset({index:0, routes:[{name: 'MainApp'}]})} />
 
             </View>
         </View>

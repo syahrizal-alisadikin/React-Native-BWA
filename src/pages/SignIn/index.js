@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 import {useDispatch} from 'react-redux'
-import axios from 'axios';
 import { View,StyleSheet } from 'react-native'
 import {Header, InputText,Button, Gap} from '../../components'
 import { CustomeHook } from '../../utils';
+import { signInAction } from '../../redux/action';
 
 const SignIn = ({navigation}) => {
     // Local Hook
@@ -20,16 +20,7 @@ const SignIn = ({navigation}) => {
     );
 
      const OnSubmit = () => {
-         console.log('form',form)
-         
-         axios.post('http://foodmarket-backend.buildwithangga.id/api/login',form)
-                .then((response) => {
-                    console.log(response)
-
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+         dispatch(signInAction(form,navigation))
      }
     return (
         <View style={styles.page}>

@@ -2,17 +2,16 @@ import { ShowMessage, storeData } from "../../utils";
 import { setLoading } from "./global";
 import axios from 'axios';
 
+const Host_Url = {
+    url_api :'http://foodmarket-backend.buildwithangga.id/api'
+}
 export const signUpAction = (data,photoReducer,navigation) => (dispatch) => {
 
-    const Host_Url = {
-        url_api :'http://foodmarket-backend.buildwithangga.id/api'
-    }
 
      axios.post(`${Host_Url.url_api}/register`,data)
      .then((response) => {
                     // menyimpan data profile
                     const userProfile = response.data.data.user;
-                    storeData('userProfile',userProfile)
                     // Menyimpan token
                     const token = `${response.data.data.token_type} ${response.data.data.access_token}`;
                     storeData('token',{value:token})
@@ -27,10 +26,20 @@ export const signUpAction = (data,photoReducer,navigation) => (dispatch) => {
                         'Content-Type'  : 'multipart/form-data'
                         }
                         })
-                        .then(res => {console.log('Data Upload',res)})
-                        .catch(err => {ShowMessage(err,'Data Image Gagal di upload')})
+                        .then(res => {
+                            userProfile.profile_photo_url = `https://foodmarket-backend.buildwithangga.id/storage/${res.data.data[0]}`
+                            storeData('userProfile',userProfile)
+                            navigation.reset({index: 0, routes:[{name:'SuccessSignUp'}]})
+
+                        })
+                        .catch(err => {
+                            ShowMessage(err,'Data Image Gagal di upload')
+                            navigation.reset({index: 0, routes:[{name:'SuccessSignUp'}]})
+
+                        })
+                   }else{
+                    navigation.reset({index: 0, routes:[{name:'SuccessSignUp'}]})
                    }
-                    navigation.replace('SuccessSignUp')
                     dispatch(setLoading(false))
 
                 })
@@ -42,4 +51,29 @@ export const signUpAction = (data,photoReducer,navigation) => (dispatch) => {
                 })
 
 
+}
+
+export const signInAction = (form,navigation) => (dispatch) => {
+    console.log(form)
+    dispatch(setLoading(true))
+    axios.post(`${Host_Url.url_api}/login`,form)
+        .then((response) => {
+            // menyimpan data profile
+            const userProfile = response.data.data.user;
+            storeData('userProfile',userProfile)
+
+            // Menyimpan token
+            const token = `${response.data.data.token_type} ${response.data.data.access_token}`;
+            storeData('token',{value:token})
+            dispatch(setLoading(false))
+
+            navigation.reset({index:0, routes:[{name:'MainApp'}]})
+
+        })
+        .catch((err) => {
+            dispatch(setLoading(false))
+            console.log(err)
+            ShowMessage(err?.response?.data?.message,'danger','danger')
+
+        })
 }

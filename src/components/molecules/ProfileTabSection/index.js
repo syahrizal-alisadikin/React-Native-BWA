@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View,Dimensions } from 'react-native'
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
-import { FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4 } from '../../../assets';
-import { FoodListItem, ItemListProfile } from '../../molecules';
+import { ItemListProfile } from '../../molecules';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Customer TabBar
 const renderTabBar = props => (
@@ -22,13 +22,20 @@ const renderTabBar = props => (
 );
 
 const Account = () => {
+
   const navigation = useNavigation();
+  const signOut = () =>{
+    AsyncStorage.multiRemove(['userProfile','token']).then(
+      navigation.reset({index:0 , routes:[{name: 'SignIn'}]})
+    )
+  }
   return (
     <View style={{paddingHorizontal:24  }}>
       <ItemListProfile text='Edit Profile'/>
       <ItemListProfile text='Home Address'/>
       <ItemListProfile text='Security'/>
       <ItemListProfile text='Payments'/>
+      <ItemListProfile text='Logout' onPress={signOut}/>
     </View>
   );
 }

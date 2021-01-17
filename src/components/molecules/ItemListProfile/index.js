@@ -1,13 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { IcNext } from '../../../assets'
 
-const ItemListProfile = ({text}) => {
+const ItemListProfile = ({text,onPress}) => {
     return (
-        <View style={styles.container}>
-            <Text>{text}</Text>
-            <IcNext/>
-        </View>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.container}>
+                <Text>{text}</Text>
+                <IcNext/>
+            </View>
+        </TouchableOpacity>
     )
 }
 
